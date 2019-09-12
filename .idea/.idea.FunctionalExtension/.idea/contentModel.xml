@@ -14,8 +14,8 @@
       <e p="FunctionalExtension" t="IncludeRecursive">
         <e p="ActionExtensions.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="F.cs" t="Include" />
         <e p="FunctionalExtension.csproj" t="IncludeRecursive" />
-        <e p="Functions.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">
@@ -23,6 +23,7 @@
             </e>
           </e>
         </e>
+        <e p="Option.cs" t="Include" />
       </e>
       <e p="FunctionalExtension.sln" t="IncludeFlat" />
       <e p="FunctionalExtension.Test" t="IncludeRecursive">

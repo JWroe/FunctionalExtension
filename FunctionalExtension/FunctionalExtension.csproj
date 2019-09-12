@@ -2,6 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
 </Project>
