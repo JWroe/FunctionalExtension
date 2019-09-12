@@ -23,7 +23,9 @@
             </e>
           </e>
         </e>
-        <e p="Option.cs" t="Include" />
+        <e p="Option" t="Include">
+          <e p="Option.cs" t="Include" />
+        </e>
       </e>
       <e p="FunctionalExtension.sln" t="IncludeFlat" />
       <e p="FunctionalExtension.Test" t="IncludeRecursive">
