@@ -8,5 +8,7 @@ namespace FunctionalExtension
         {
             using (disposable) return f(disposable);
         }
+
+        public static Func<bool> Not(Func<bool> predicate) => () => !predicate();
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using Shouldly;
-using static FunctionalExtension.F;
 using Xunit;
+using static FunctionalExtension.F;
 
 namespace FunctionalExtension.Test
 {
@@ -19,6 +19,14 @@ namespace FunctionalExtension.Test
             var toDispose = Using(new DisposeMe(), me => me);
             
             toDispose.Disposed.ShouldBeTrue();
+        }
+
+        [Fact]
+        public void NotNegatesPredicate()
+        {
+            bool Predicate(bool input) => input;
+            Not(() => Predicate(true)).Invoke().ShouldBe(false);
+            Not(() => Predicate(false)).Invoke().ShouldBe(true);
         }
     }
 }
