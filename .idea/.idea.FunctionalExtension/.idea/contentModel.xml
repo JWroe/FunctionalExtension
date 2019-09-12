@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Jamie\.Rider2019.2\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\Jamie\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Jamie\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_FunctionalExtension.-437759345.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Jamie\git\FunctionalLib\FunctionalExtension" t="IncludeFlat">
+      <e p="FunctionalExtension" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Class1.cs" t="Include" />
+        <e p="FunctionalExtension.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="FunctionalExtension.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="FunctionalExtension.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
