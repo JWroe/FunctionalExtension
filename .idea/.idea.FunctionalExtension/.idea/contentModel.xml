@@ -12,9 +12,10 @@
     <e p="C:\Users\Jamie\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_FunctionalExtension.877405257.00" t="ExcludeRecursive" />
     <e p="C:\Users\Jamie\git\FunctionalExtension" t="IncludeFlat">
       <e p="FunctionalExtension" t="IncludeRecursive">
+        <e p="ActionExtensions.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="F.cs" t="Include" />
         <e p="FunctionalExtension.csproj" t="IncludeRecursive" />
+        <e p="Functions.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">

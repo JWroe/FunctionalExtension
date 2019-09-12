@@ -1,4 +1,5 @@
 ﻿using System;
+using Unit = System.ValueTuple;
 
 namespace FunctionalExtension
 {
@@ -10,5 +11,6 @@ namespace FunctionalExtension
         }
 
         public static Func<bool> Not(this Func<bool> predicate) => () => !predicate();
+        public static Unit Unit() => default;
     }
 }
