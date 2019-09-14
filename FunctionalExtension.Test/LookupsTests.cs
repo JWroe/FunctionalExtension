@@ -20,11 +20,11 @@ namespace FunctionalExtension.Test
         }
         
         [Theory]
-        [InlineData(15, "value")]
-        [InlineData(0, "not found")]
-        public void DictionaryLookup(int input, string expected)
+        [InlineData("key", "value")]
+        [InlineData("not key", "not found")]
+        public void DictionaryLookup(string input, string expected)
         {
-            var collection = new Dictionary<int, string> { { 15, "value" } };
+            var collection = new Dictionary<string, string> { { "key", "value" } };
             collection.Lookup(input)
                       .Match(some => some, none => "not found")
                       .ShouldBe(expected);
