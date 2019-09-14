@@ -38,7 +38,7 @@ namespace FunctionalExtension.Test
             new List<object[]>
             {
                 new object[] { "Friday", Some(DayOfWeek.Friday).AsOption() },
-                new object[] { "Freeday", None().AsOption<DayOfWeek>() },
+                new object[] { "Freeday", None().AsOption<DayOfWeek>()},
             };
     }
 }

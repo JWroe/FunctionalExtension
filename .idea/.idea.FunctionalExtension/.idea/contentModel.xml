@@ -17,7 +17,7 @@
         <e p="Core" t="Include">
           <e p="_F.cs" t="Include" />
           <e p="CollectionLookup.cs" t="Include" />
-          <e p="OptionType.cs" t="Include" />
+          <e p="EnumerationImprovements.cs" t="Include" />
           <e p="Parse.cs" t="Include" />
         </e>
         <e p="Exceptions" t="Include">
@@ -47,7 +47,7 @@
             </e>
           </e>
         </e>
-        <e p="OptionTypesTests.cs" t="Include" />
+        <e p="OptionTests.cs" t="Include" />
         <e p="ParseTests.cs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />

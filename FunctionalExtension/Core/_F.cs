@@ -15,6 +15,10 @@ namespace FunctionalExtension.Core
         public static Func<bool> Not(this Func<bool> predicate) => () => !predicate();
         public static Unit Unit() => default;
 
-        public static IEnumerable<R> Map<T, R>(this IEnumerable<T> ts, Func<T, R> f) => ts.Select(f);
+        public static None None() => FunctionalExtension.None.Default;
+        public static Some<T> Some<T>(T value) => new Some<T>(value);
+
+        public static Option<T> AsOption<T>(this Some<T> some) => some;
+        public static Option<T> AsOption<T>(this None none) => none;
     }
 }

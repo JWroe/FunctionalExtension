@@ -20,6 +20,8 @@ namespace FunctionalExtension
                 _ => throw new ThisCantHappenException()
             };
 
+        public R Match<R>(Func<T, R> ifSome, Func<R> ifNone) => Match(some => ifSome(some.Value), _ => ifNone());
+
         public Option<R> Match<R>(Func<Some<T>, R> ifSome) => Match(some => Some(ifSome(some)).AsOption(), _ => None());
 
         public Option<R> Map<R>(Func<T, R> f) => Match(some => f(some));

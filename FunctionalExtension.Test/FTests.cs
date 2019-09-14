@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using FunctionalExtension.Core;
 using Shouldly;
 using Xunit;
@@ -21,5 +23,13 @@ namespace FunctionalExtension.Test
         [InlineData(false, true)]
         public void NotNegatesPredicate(bool input, bool expected)
             => ((Func<bool>)(() => input)).Not().Invoke().ShouldBe(expected);
+
+        [Fact]
+        public void ForEachWorksCorrectly()
+        {
+            var count = 0;
+            Enumerable.Range(1, 5).ForEach(i => count += 1);
+            count.ShouldBe(5);
+        }
     }
 }
