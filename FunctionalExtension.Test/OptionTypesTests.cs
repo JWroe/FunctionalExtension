@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Shouldly;
 using Xunit;
 using static FunctionalExtension.Core.F;
@@ -15,15 +14,27 @@ namespace FunctionalExtension.Test
         public void SomeGetsValuePassed() => Some("Frederick").Value.ShouldBe("Frederick");
 
         [Theory]
-        [MemberData(nameof(Options))]
-        public void OptionMapsCorrectly(Func<Option<string>> getOption, string expected) =>
-            getOption().Match(some => SomeMatched, none => NoneMatched).ShouldBe(expected);
+        [MemberData(nameof(PatternMatchOptions))]
+        public void OptionTypePatternMatchingIsCorrect(Option<string> input, string expected) =>
+            input.Match(some => SomeMatched, none => NoneMatched).ShouldBe(expected);
 
-        public static IEnumerable<object[]> Options =>
+        public static IEnumerable<object[]> PatternMatchOptions =>
             new List<object[]>
             {
-                new object[] { (Func<Option<string>>)(() => None()), NoneMatched },
-                new object[] { (Func<Option<string>>)(() => Some(SomeMatched)), SomeMatched },
+                new object[] { None(), NoneMatched },
+                new object[] { Some(SomeMatched), SomeMatched },
+            };
+
+        [Theory]
+        [MemberData(nameof(MapOptions))]
+        public void OptionMapsCorrectly(Option<string> input, Option<string> expected) =>
+            input.Map(str => str.ToUpper()).ShouldBe(expected);
+
+        public static IEnumerable<object[]> MapOptions =>
+            new List<object[]>
+            {
+                new object[] { None(), None() },
+                new object[] { Some(SomeMatched), Some(SomeMatched.ToUpper()) },
             };
     }
 }

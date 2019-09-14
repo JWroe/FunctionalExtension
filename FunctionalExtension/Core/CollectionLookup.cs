@@ -14,7 +14,7 @@ namespace FunctionalExtension.Core
         {
             var items = collection.Where(predicate);
             // ReSharper disable twice PossibleMultipleEnumeration - we are only looking at the first element, so it's better to do that twice than iterate over the whole collection once
-            return items.Any() ? Some(items.First()) : None().AsOption<T>();
+            return items.Any() ? Some(items.First()).AsOption() : None();
         }
     }
 }

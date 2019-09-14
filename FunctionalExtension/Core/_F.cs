@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Reflection.Metadata;
+using System.Collections.Generic;
+using System.Linq;
 using Unit = System.ValueTuple;
 
 namespace FunctionalExtension.Core
@@ -14,5 +15,6 @@ namespace FunctionalExtension.Core
         public static Func<bool> Not(this Func<bool> predicate) => () => !predicate();
         public static Unit Unit() => default;
 
+        public static IEnumerable<R> Map<T, R>(this IEnumerable<T> ts, Func<T, R> f) => ts.Select(f);
     }
 }

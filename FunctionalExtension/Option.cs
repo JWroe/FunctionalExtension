@@ -20,20 +20,18 @@ namespace FunctionalExtension
                 _ => throw new ThisCantHappenException()
             };
 
+        public Option<R> Match<R>(Func<Some<T>, R> ifSome) => Match(some => Some(ifSome(some)).AsOption(), _ => None());
+
+        public Option<R> Map<R>(Func<T, R> f) => Match(some => f(some));
+
         public static implicit operator Option<T>(None none) => new Option<T>(none);
         public static implicit operator Option<T>(Some<T> some) => new Option<T>(some);
-        public static implicit operator Option<T>(T val) => val is null ? None().AsOption<T>() : Some(val);
+        public static implicit operator Option<T>(T val) => val is null ? (Option<T>)None() : Some(val);
 
-        public override string ToString() => $"Option:[ {option} ]";
-
-        public bool Equals(Option<T> other)
-        {
-            return ReferenceEquals(this, other) || Equals(option, other?.option);
-        }
-
+        public bool Equals(Option<T> other) => ReferenceEquals(this, other) || Equals(option, other?.option);
         public override bool Equals(object? obj) => obj is Option<T> other && Equals(other);
-
         public override int GetHashCode() => option?.GetHashCode() ?? 0;
+        public override string ToString() => $"Option:[ {option} ]";
     }
 
     public sealed class Some<T> : IEquatable<Some<T>>, IEquatable<None>
@@ -48,7 +46,6 @@ namespace FunctionalExtension
         public bool Equals(None none) => false;
         public override bool Equals(object? obj) => obj is Some<T> other && Equals(other);
         public override int GetHashCode() => EqualityComparer<T>.Default.GetHashCode(Value);
-
         public override string ToString() => $"Some[ {Value} ]";
     }
 
