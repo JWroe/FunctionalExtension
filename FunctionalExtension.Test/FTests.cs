@@ -1,5 +1,4 @@
 using System;
-using FunctionalExtension.Option;
 using Shouldly;
 using Xunit;
 
@@ -21,7 +20,5 @@ namespace FunctionalExtension.Test
         [InlineData(false, true)]
         public void NotNegatesPredicate(bool input, bool expected)
             => ((Func<bool>)(() => input)).Not().Invoke().ShouldBe(expected);
-
-        
     }
 }

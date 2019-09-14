@@ -1,5 +1,5 @@
 ﻿using System;
-using FunctionalExtension.Option;
+using System.Diagnostics.CodeAnalysis;
 using Unit = System.ValueTuple;
 
 namespace FunctionalExtension
@@ -15,6 +15,6 @@ namespace FunctionalExtension
         public static Unit Unit() => default;
 
         public static None None => None.Default;
-        public static Some<T> Some<T>(T value) => new Some<T>(value);
+        public static Some<T> Some<T>([NotNull] T value) where T : class => new Some<T>(value);
     }
 }

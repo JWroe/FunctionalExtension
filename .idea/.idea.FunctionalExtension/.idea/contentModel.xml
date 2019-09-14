@@ -14,6 +14,9 @@
       <e p="FunctionalExtension" t="IncludeRecursive">
         <e p="ActionExtensions.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Exceptions" t="Include">
+          <e p="ThisCantHappenException.cs" t="Include" />
+        </e>
         <e p="F.cs" t="Include" />
         <e p="FunctionalExtension.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
@@ -23,9 +26,7 @@
             </e>
           </e>
         </e>
-        <e p="Option" t="Include">
-          <e p="Option.cs" t="Include" />
-        </e>
+        <e p="Option.cs" t="Include" />
       </e>
       <e p="FunctionalExtension.sln" t="IncludeFlat" />
       <e p="FunctionalExtension.Test" t="IncludeRecursive">
@@ -39,6 +40,7 @@
             </e>
           </e>
         </e>
+        <e p="OptionTypesTests.cs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />
     </e>
