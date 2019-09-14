@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using FunctionalExtension.Core;
 using Shouldly;
@@ -11,9 +11,20 @@ namespace FunctionalExtension.Test
         [Theory]
         [InlineData("name", "value")]
         [InlineData("something else", "not found")]
-        public void ParseStringToInt(string input, string expected)
+        public void NameValueCollectionLookup(string input, string expected)
         {
             var collection = new NameValueCollection { { "name", "value" } };
+            collection.Lookup(input)
+                      .Match(some => some, none => "not found")
+                      .ShouldBe(expected);
+        }
+        
+        [Theory]
+        [InlineData(15, "value")]
+        [InlineData(0, "not found")]
+        public void DictionaryLookup(int input, string expected)
+        {
+            var collection = new Dictionary<int, string> { { 15, "value" } };
             collection.Lookup(input)
                       .Match(some => some, none => "not found")
                       .ShouldBe(expected);

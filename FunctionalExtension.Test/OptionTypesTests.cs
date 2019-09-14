@@ -12,14 +12,12 @@ namespace FunctionalExtension.Test
         private const string SomeMatched = "This was a Some option";
 
         [Fact]
-        public void SomeGetsValuePassed() => Some("Frederick").Value
-                                                             .ShouldBe("Frederick");
+        public void SomeGetsValuePassed() => Some("Frederick").Value.ShouldBe("Frederick");
 
         [Theory]
         [MemberData(nameof(Options))]
         public void OptionMapsCorrectly(Func<Option<string>> getOption, string expected) =>
-            getOption().Match(some => SomeMatched, none => NoneMatched)
-                       .ShouldBe(expected);
+            getOption().Match(some => SomeMatched, none => NoneMatched).ShouldBe(expected);
 
         public static IEnumerable<object[]> Options =>
             new List<object[]>

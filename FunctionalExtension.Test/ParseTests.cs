@@ -1,6 +1,9 @@
-﻿using FunctionalExtension.Core;
+﻿using System;
+using System.Collections.Generic;
+using FunctionalExtension.Core;
 using Shouldly;
 using Xunit;
+using static FunctionalExtension.Core.F;
 
 namespace FunctionalExtension.Test
 {
@@ -25,5 +28,17 @@ namespace FunctionalExtension.Test
             input.ParseDouble()
                  .Match(some => some.Value, none => -1)
                  .ShouldBe(expected);
+
+        [Theory]
+        [MemberData(nameof(TestEnumData))]
+        public void ParseStringToEnum(string input, object expected) =>
+            input.ParseEnum<DayOfWeek>().ShouldBe(expected);
+
+        public static IEnumerable<object[]> TestEnumData =>
+            new List<object[]>
+            {
+                new object[] { "Friday", Some(DayOfWeek.Friday).AsOption() },
+                new object[] { "Freeday", None().AsOption<DayOfWeek>() },
+            };
     }
 }
