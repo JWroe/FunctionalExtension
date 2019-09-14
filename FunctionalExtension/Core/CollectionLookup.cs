@@ -1,7 +1,6 @@
 ﻿using System.Collections.Specialized;
-using Unit = System.ValueTuple;
 
-namespace FunctionalExtension
+namespace FunctionalExtension.Core
 {
     public static partial class F
     {

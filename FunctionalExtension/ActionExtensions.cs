@@ -1,5 +1,5 @@
 ﻿using System;
-using static FunctionalExtension.F;
+using static FunctionalExtension.Core.F;
 using Unit = System.ValueTuple;
 
 namespace FunctionalExtension

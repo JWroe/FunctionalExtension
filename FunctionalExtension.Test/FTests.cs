@@ -1,4 +1,5 @@
 using System;
+using FunctionalExtension.Core;
 using Shouldly;
 using Xunit;
 

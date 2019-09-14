@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Shouldly;
 using Xunit;
-using static FunctionalExtension.F;
+using static FunctionalExtension.Core.F;
 
 namespace FunctionalExtension.Test
 {
