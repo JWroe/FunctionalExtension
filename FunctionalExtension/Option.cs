@@ -2,7 +2,7 @@
 
 namespace FunctionalExtension
 {
-    public sealed class Option<T> where T : class
+    public sealed class Option<T>
     {
         private readonly object option;
 
@@ -20,7 +20,7 @@ namespace FunctionalExtension
         public static implicit operator Option<T>(Some<T> some) => new Option<T>(some);
     }
 
-    public sealed class Some<T> where T : class
+    public sealed class Some<T>
     {
         public T Value { get; }
 

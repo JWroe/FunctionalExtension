@@ -15,6 +15,8 @@ namespace FunctionalExtension
         public static Unit Unit() => default;
 
         public static None None => None.Default;
-        public static Some<T> Some<T>([NotNull] T value) where T : class => new Some<T>(value);
+        public static Some<T> Some<T>([NotNull] T value) => new Some<T>(value);
+
+        public static Option<int> Parse(this string str) => int.TryParse(str, out var num) ? (Option<int>)Some(num) : None;
     }
 }
