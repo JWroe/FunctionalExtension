@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using Unit = System.ValueTuple;
 
 namespace FunctionalExtension
 {
-    public static class F
+    public static partial class F
     {
         public static Func<R> Using<T, R>(this T disposable, Func<T, R> f) where T : IDisposable
         {
