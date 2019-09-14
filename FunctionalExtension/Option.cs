@@ -1,4 +1,5 @@
 ﻿using System;
+using static FunctionalExtension.F;
 
 namespace FunctionalExtension
 {
@@ -18,6 +19,7 @@ namespace FunctionalExtension
 
         public static implicit operator Option<T>(None none) => new Option<T>(none);
         public static implicit operator Option<T>(Some<T> some) => new Option<T>(some);
+        public static implicit operator Option<T>(T value) => value != null ? Some(value).AsOption() : None();
     }
 
     public sealed class Some<T>

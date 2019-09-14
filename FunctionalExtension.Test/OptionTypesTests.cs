@@ -12,7 +12,7 @@ namespace FunctionalExtension.Test
         private const string SomeMatched = "This was a Some option";
 
         [Fact]
-        public void SomeGetsValuePassed() => Some("Fredrick").Value
+        public void SomeGetsValuePassed() => Some("Frederick").Value
                                                              .ShouldBe("Frederick");
 
         [Theory]
@@ -24,7 +24,7 @@ namespace FunctionalExtension.Test
         public static IEnumerable<object[]> Options =>
             new List<object[]>
             {
-                new object[] { (Func<Option<string>>)(() => F.None), NoneMatched },
+                new object[] { (Func<Option<string>>)(() => None()), NoneMatched },
                 new object[] { (Func<Option<string>>)(() => Some(SomeMatched)), SomeMatched },
             };
     }

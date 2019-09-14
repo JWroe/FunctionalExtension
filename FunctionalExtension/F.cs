@@ -14,9 +14,11 @@ namespace FunctionalExtension
         public static Func<bool> Not(this Func<bool> predicate) => () => !predicate();
         public static Unit Unit() => default;
 
-        public static None None => None.Default;
+        public static None None() => FunctionalExtension.None.Default;
+        public static Option<T> AsOption<T>([NotNull] this None none) => none;
         public static Some<T> Some<T>([NotNull] T value) => new Some<T>(value);
+        public static Option<T> AsOption<T>([NotNull] this Some<T> some) => some;
 
-        public static Option<int> Parse(this string str) => int.TryParse(str, out var num) ? (Option<int>)Some(num) : None;
+        public static Option<int> Parse(this string str) => int.TryParse(str, out var num) ? Some(num).AsOption() : None();
     }
 }
