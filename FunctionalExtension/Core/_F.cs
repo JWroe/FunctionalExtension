@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata;
 using Unit = System.ValueTuple;
 
 namespace FunctionalExtension.Core
@@ -13,8 +14,5 @@ namespace FunctionalExtension.Core
         public static Func<bool> Not(this Func<bool> predicate) => () => !predicate();
         public static Unit Unit() => default;
 
-
-
-        public static Option<int> Parse(this string str) => int.TryParse(str, out var num) ? Some(num).AsOption() : None();
     }
 }
