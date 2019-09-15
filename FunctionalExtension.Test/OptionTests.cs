@@ -36,5 +36,22 @@ namespace FunctionalExtension.Test
                 new object[] { None(), None() },
                 new object[] { Some(SomeMatched), Some(SomeMatched.ToUpper()) },
             };
+
+        [Fact]
+        public void BindIsCorrect()
+        {
+            var r = "6".ParseInt().Bind(Age.Of);
+        }
+
+        public sealed class Age
+        {
+            private readonly int value;
+            public static Option<Age> Of(int age) => IsValid(age) ? Some(new Age(age)).AsOption() : None();
+
+            private static bool IsValid(int age) => age >= 0 && age <= 120;
+
+            private Age(int value) => this.value = value;
+
+        }
     }
 }

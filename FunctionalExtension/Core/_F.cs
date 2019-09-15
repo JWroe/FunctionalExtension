@@ -19,6 +19,7 @@ namespace FunctionalExtension.Core
         public static Option<T> AsOption<T>(this Some<T> some) => some;
         public static Option<T> AsOption<T>(this None none) => none;
         public static Option<R> Map<T, R>(this Option<T> optT, Func<T, R> f) => optT.Match(some => f(some), _ => None().AsOption<R>());
+        public static Option<R> Bind<T, R>(this Option<T> optT, Func<T, Option<R>> f) => optT.Match(some => f(some), _ => None().AsOption<R>());
 
     }
 }
