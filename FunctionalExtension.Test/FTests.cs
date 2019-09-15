@@ -1,8 +1,10 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using FunctionalExtension.Core;
 using Shouldly;
 using Xunit;
+using Unit = System.ValueTuple;
 
 namespace FunctionalExtension.Test
 {
