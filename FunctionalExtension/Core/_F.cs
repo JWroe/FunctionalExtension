@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Unit = System.ValueTuple;
 
 namespace FunctionalExtension.Core
@@ -20,5 +18,7 @@ namespace FunctionalExtension.Core
 
         public static Option<T> AsOption<T>(this Some<T> some) => some;
         public static Option<T> AsOption<T>(this None none) => none;
+        public static Option<R> Map<T, R>(this Option<T> optT, Func<T, R> f) => optT.Match(some => f(some), _ => None().AsOption<R>());
+
     }
 }
