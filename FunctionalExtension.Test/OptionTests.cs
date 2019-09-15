@@ -38,20 +38,12 @@ namespace FunctionalExtension.Test
             };
 
         [Fact]
-        public void BindIsCorrect()
-        {
-            var r = "6".ParseInt().Bind(Age.Of);
-        }
+        public void BindIsCorrect() => Some(6).FlatMap(i => i * 2).ShouldBe(Some(12).AsOption());
 
-        public sealed class Age
-        {
-            private readonly int value;
-            public static Option<Age> Of(int age) => IsValid(age) ? Some(new Age(age)).AsOption() : None();
+        [Fact]
+        public void SomeOptionAsEnumerableMapsCorrectly() => Some(1).AsOption().AsEnumerable().ShouldBe(List(1));
 
-            private static bool IsValid(int age) => age >= 0 && age <= 120;
-
-            private Age(int value) => this.value = value;
-
-        }
+        [Fact]
+        public void NoneAsEnumerableMapsCorrectly() => None().AsOption<int>().AsEnumerable().ShouldBe(List<int>());
     }
 }

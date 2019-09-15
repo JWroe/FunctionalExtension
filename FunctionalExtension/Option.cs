@@ -12,6 +12,8 @@ namespace FunctionalExtension
 
         private Option([NotNull] object option) => this.option = option;
 
+        public IEnumerable<T> AsEnumerable() => Match(some => List(some.Value), none => List<T>());
+
         public R Match<R>(Func<Some<T>, R> ifSome, Func<None, R> ifNone) =>
             option switch
             {
