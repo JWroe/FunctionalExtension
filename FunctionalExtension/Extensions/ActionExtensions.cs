@@ -2,7 +2,7 @@
 using static FunctionalExtension.Core.F;
 using Unit = System.ValueTuple;
 
-namespace FunctionalExtension
+namespace FunctionalExtension.Extensions
 {
     public static class ActionExtensions
     {

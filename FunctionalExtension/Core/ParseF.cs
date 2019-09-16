@@ -1,4 +1,6 @@
 ﻿using System;
+using FunctionalExtension.Extensions;
+using FunctionalExtension.Types;
 
 namespace FunctionalExtension.Core
 {

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using FunctionalExtension.Types;
+using static FunctionalExtension.Core.F;
 using Unit = System.ValueTuple;
 
-namespace FunctionalExtension.Core
+namespace FunctionalExtension.Extensions
 {
-    public static partial class F
+    public static class EnumerableExtensions
     {
         public static IEnumerable<R> Map<T, R>(this IEnumerable<T> ts, Func<T, R> f) => ts.Select(f);
         public static ISet<R> Map<T, R>(this ISet<T> ts, Func<T, R> f) => ts.Select(f).ToImmutableHashSet();
@@ -23,6 +25,6 @@ namespace FunctionalExtension.Core
 
         public static IEnumerable<Unit> ForEach<T>(this IEnumerable<T> ts, Action<T> action) => ts.Map(action.ToFunc()).Execute();
         public static IEnumerable<T> Execute<T>(this IEnumerable<T> ts) => ts.ToImmutableList();
-        public static IEnumerable<T> List<T>(params T[] items) => items.ToImmutableList();
+        public static IEnumerable<T> ReturnCollection<T>(this T t) => List(t);
     }
 }

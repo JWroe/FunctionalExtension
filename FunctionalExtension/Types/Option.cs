@@ -4,14 +4,14 @@ using System.Diagnostics.CodeAnalysis;
 using FunctionalExtension.Exceptions;
 using static FunctionalExtension.Core.F;
 
-namespace FunctionalExtension
+namespace FunctionalExtension.Types
 {
     public sealed class Option<T> : IEquatable<Option<T>>
     {
         private readonly object option;
 
         private Option([NotNull] object option) => this.option = option;
-        
+
         public R Match<R>(Func<Some<T>, R> ifSome, Func<None, R> ifNone) =>
             option switch
             {
@@ -23,7 +23,6 @@ namespace FunctionalExtension
         public static implicit operator Option<T>(None none) => new Option<T>(none);
         public static implicit operator Option<T>(Some<T> some) => new Option<T>(some);
         public static implicit operator Option<T>(T val) => val is null ? (Option<T>)None() : Some(val);
-
         public bool Equals(Option<T> other) => ReferenceEquals(this, other) || Equals(option, other?.option);
         public override bool Equals(object? obj) => obj is Option<T> other && Equals(other);
         public override int GetHashCode() => option?.GetHashCode() ?? 0;

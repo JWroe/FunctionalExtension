@@ -12,17 +12,20 @@
     <e p="C:\Users\Jamie\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_FunctionalExtension.877405257.00" t="ExcludeRecursive" />
     <e p="C:\Users\Jamie\git\FunctionalExtension" t="IncludeFlat">
       <e p="FunctionalExtension" t="IncludeRecursive">
-        <e p="ActionExtensions.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Core" t="Include">
           <e p="_F.cs" t="Include" />
-          <e p="CollectionLookup.cs" t="Include" />
-          <e p="EnumerableExtension.cs" t="Include" />
-          <e p="OptionExtension.cs" t="Include" />
-          <e p="Parse.cs" t="Include" />
+          <e p="LookupF.cs" t="Include" />
+          <e p="ParseF.cs" t="Include" />
         </e>
         <e p="Exceptions" t="Include">
           <e p="ThisCantHappenException.cs" t="Include" />
+        </e>
+        <e p="Extensions" t="Include">
+          <e p="ActionExtensions.cs" t="Include" />
+          <e p="EnumerableExtensions.cs" t="Include" />
+          <e p="OptionExtensions.cs" t="Include" />
+          <e p="RandomExtensions.cs" t="Include" />
         </e>
         <e p="FunctionalExtension.csproj" t="IncludeRecursive" />
         <e p="FunctionalExtension.csproj.DotSettings" t="Include" />
@@ -33,13 +36,16 @@
             </e>
           </e>
         </e>
-        <e p="Option.cs" t="Include" />
+        <e p="Types" t="Include">
+          <e p="Option.cs" t="Include" />
+        </e>
       </e>
       <e p="FunctionalExtension.sln" t="IncludeFlat" />
       <e p="FunctionalExtension.Test" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="FTests.cs" t="Include" />
         <e p="FunctionalExtension.Test.csproj" t="IncludeRecursive" />
+        <e p="IntegrationTests.cs" t="Include" />
         <e p="LookupsTests.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

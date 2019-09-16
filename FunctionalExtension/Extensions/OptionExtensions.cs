@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Unit = System.ValueTuple;
+using FunctionalExtension.Types;
+using static FunctionalExtension.Core.F;
 
-namespace FunctionalExtension.Core
+namespace FunctionalExtension.Extensions
 {
-    public static partial class F
+    public static class OptionExtensions
     {
-        public static Option<R> Map<T, R>(this Option<T> optT, Func<T, R> f) => optT.Match(some => f(some.Value), _ => None().AsOption<R>());
+        public static Option<R> Map<T, R>(this Option<T> optT, Func<T, R> f) => optT.FlatMap(t => f(t).ReturnOption());
         public static Option<R> Map<T, R>(this Some<T> some, Func<T, R> f) => some.AsOption().Map(f);
         public static Option<R> FlatMap<T, R>(this Option<T> optT, Func<T, Option<R>> f) => optT.Match(some => f(some.Value), none => none);
         public static Option<R> FlatMap<T, R>(this Some<T> optT, Func<T, Option<R>> f) => ((Option<T>)optT).FlatMap(f);
@@ -21,6 +22,7 @@ namespace FunctionalExtension.Core
 
         public static Option<T> AsOption<T>(this Some<T> some) => some;
         public static Option<T> AsOption<T>(this None none) => none;
+        public static Option<T> ReturnOption<T>(this T t) => t;
         public static IEnumerable<T> AsEnumerable<T>(this Option<T> optT) => optT.Match(some => List(some.Value), none => List<T>());
         public static IEnumerable<T> AsEnumerable<T>(this Some<T> some) => List(some.Value);
         public static IEnumerable<T> AsEnumerable<T>(this None _) => List<T>();
