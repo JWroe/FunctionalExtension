@@ -18,6 +18,10 @@ namespace FunctionalExtension.Extensions
                                                                 Func<KeyValuePair<Key, T>, R> valSelector) where Key : notnull where RKey : notnull
             => ts.ToImmutableDictionary(keySelector, valSelector);
 
+        public static IImmutableDictionary<Key, T> ToImmutableDictionary<T, Key>(this IEnumerable<T> ts,
+                                                                                 Func<T, Key> keySelector) where Key : notnull
+            => ts.ToImmutableDictionary(keySelector, t => t);
+
         public static IEnumerable<R> FlatMap<T, R>(this IEnumerable<T> ts, Func<T, IEnumerable<R>> f) => ts.SelectMany(f);
 
         public static IEnumerable<R> FlatMap<T, R>(this IEnumerable<T> list, Func<T, Option<R>> func) => list.FlatMap(t => func(t).AsEnumerable());

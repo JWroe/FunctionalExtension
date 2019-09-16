@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using FunctionalExtension.Core;
 using FunctionalExtension.Extensions;
 using FunctionalExtension.Types;
@@ -8,7 +9,7 @@ using Shouldly;
 using Xunit;
 using static FunctionalExtension.Core.F;
 
-namespace FunctionalExtension.Test
+namespace FunctionalExtension.Test.Examples
 {
     /// <summary>
     ///     Some tests that also show example usage
@@ -17,37 +18,61 @@ namespace FunctionalExtension.Test
     {
         private static readonly Random Random = new Random();
         private const string WithWorkPermitId = nameof(WithWorkPermitId);
-        private const string WithLeavingDateId = nameof(WithLeavingDateId);
+        private const string WithExpiredWorkPermitId = nameof(WithExpiredWorkPermitId);
+        private const string WithoutWorkPermit = nameof(WithoutWorkPermit);
 
         [Theory]
-        [InlineData(WithWorkPermitId)]
-        [InlineData(WithLeavingDateId)]
+        [InlineData(WithWorkPermitId, true)]
+        [InlineData(WithoutWorkPermit)]
+        [InlineData(WithExpiredWorkPermitId)]
         [InlineData("wrong id")]
-        public void EmployeeFGetWorkPermit(string id)
-        {
-            var actual = Employees.ToImmutableDictionary(employee => employee.Id, employee => employee)
-                                  .GetWorkPermit(id);
-
-            var expected = Employees.Lookup(emp => emp.Id == id).FlatMap(emp => emp.WorkPermit);
-
-            actual.ShouldBe(expected);
-        }
+        public void EmployeeFGetWorkPermit(string id, bool expected = false) =>
+            Employees.ToImmutableDictionary(employee => employee.Id, employee => employee)
+                     .GetWorkPermit(id)
+                     .Match(some => true, none => false)
+                     .ShouldBe(expected, $"{id} {(expected ? "should" : "should not")} have had a work permit, but one was {(!expected ? "found" : "not found'")}");
 
         private static readonly IImmutableList<Employee> Employees = ImmutableList<Employee>
                                                                      .Empty
-                                                                     .Add(new Employee(WithWorkPermitId, Random.NextDateTime(), new WorkPermit(Random.NextString(), Random.NextDateTime())))
-                                                                     .Add(new Employee(WithLeavingDateId, Random.NextDateTime(), Random.NextDateTime()));
+                                                                     .Add(new Employee(WithWorkPermitId, Random.NextDateTime(), new WorkPermit(Random.NextString(), DateTime.MaxValue)))
+                                                                     .Add(new Employee(WithExpiredWorkPermitId, Random.NextDateTime(), new WorkPermit(Random.NextString(), DateTime.MinValue)))
+                                                                     .Add(new Employee(WithoutWorkPermit, Random.NextDateTime()));
+
+        [Fact]
+        public void EmployeeFYearsAtCompany() =>
+            List((Started: DateTime.MinValue, Left: DateTime.MinValue.AddYears(5).AddDays(182.5).ReturnOption()),
+                 (DateTime.UtcNow, None()))
+                .Map(tuple => new Employee(Random.NextString(), tuple.Started, tuple.Left))
+                .AverageYearsWorkedAtTheCompany()
+                .ShouldBe(5.501369863013698d);
     }
 
     public static class EmployeeF
     {
-        public static Option<WorkPermit> GetWorkPermit(this IDictionary<string, Employee> people, string employeeId) => people.Lookup(employeeId).FlatMap(emp => emp.WorkPermit);
-        public static double AverageYearsWorkedAtTheCompany(this IEnumerable<Employee> employees) => 0;
+        public static Option<WorkPermit> GetWorkPermit(this IDictionary<string, Employee> people, string employeeId) =>
+            people.Lookup(employeeId)
+                  .FlatMap(emp => emp.WorkPermit)
+                  .Filter(permit => permit.Expiry > DateTime.UtcNow);
+
+        public static double AverageYearsWorkedAtTheCompany(this IEnumerable<Employee> employees)
+            => employees
+               .FlatMap(e => e.LeftOn.Map(leftOn => YearsBetween(e.JoinedOn, leftOn)))
+               .Average();
+
+        static double YearsBetween(DateTime start, DateTime end) => (end - start).Days / 365d;
     }
 
     public class Employee
     {
-        public Employee(string id, DateTime joinedOn, WorkPermit workPermit)
+        public Employee(string id, DateTime joinedOn)
+            : this(id,
+                   joinedOn,
+                   None(),
+                   None())
+        {
+        }
+
+        public Employee(string id, DateTime joinedOn, Option<WorkPermit> workPermit)
             : this(id,
                    joinedOn,
                    workPermit,
@@ -55,7 +80,7 @@ namespace FunctionalExtension.Test
         {
         }
 
-        public Employee(string id, DateTime joinedOn, DateTime leftOn)
+        public Employee(string id, DateTime joinedOn, Option<DateTime> leftOn)
             : this(id,
                    joinedOn,
                    None(),
