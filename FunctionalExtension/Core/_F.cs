@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using FunctionalExtension.Types;
 using Unit = System.ValueTuple;
 
@@ -21,5 +22,7 @@ namespace FunctionalExtension.Core
         public static Func<bool> Not(this Func<bool> predicate) => () => !predicate();
 
         public static IEnumerable<T> List<T>(params T[] items) => items.ToImmutableList();
+
+        public static IEnumerable<int> Range(int count = 1) => Enumerable.Range(0, count);
     }
 }
