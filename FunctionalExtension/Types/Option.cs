@@ -4,16 +4,17 @@ using System.Diagnostics.CodeAnalysis;
 using FunctionalExtension.Exceptions;
 using static FunctionalExtension.Core.F;
 
+
 namespace FunctionalExtension.Types
 {
     public sealed class Option<T> : IEquatable<Option<T>>
     {
-        private readonly object option;
+        private readonly object _option;
 
-        private Option([NotNull] object option) => this.option = option;
+        private Option([NotNull] object option) => _option = option;
 
         public R Match<R>(Func<Some<T>, R> ifSome, Func<None, R> ifNone) =>
-            option switch
+            _option switch
             {
                 Some<T> s => ifSome(s),
                 None n => ifNone(n),
@@ -22,11 +23,11 @@ namespace FunctionalExtension.Types
 
         public static implicit operator Option<T>(None none) => new Option<T>(none);
         public static implicit operator Option<T>(Some<T> some) => new Option<T>(some);
-        public static implicit operator Option<T>(T val) => val is null ? (Option<T>)None() : Some(val);
-        public bool Equals(Option<T> other) => ReferenceEquals(this, other) || Equals(option, other?.option);
+        public static implicit operator Option<T>(T val) => val is null ? (Option<T>) None() : Some(val);
+        public bool Equals(Option<T> other) => ReferenceEquals(this, other) || Equals(_option, other?._option);
         public override bool Equals(object? obj) => obj is Option<T> other && Equals(other);
-        public override int GetHashCode() => option?.GetHashCode() ?? 0;
-        public override string ToString() => $"Option:[ {option} ]";
+        public override int GetHashCode() => _option?.GetHashCode() ?? 0;
+        public override string ToString() => $"Option:[ {_option} ]";
     }
 
     public sealed class Some<T> : IEquatable<Some<T>>, IEquatable<None>
@@ -37,7 +38,10 @@ namespace FunctionalExtension.Types
 
         public static implicit operator T(Some<T> some) => some.Value;
 
-        public bool Equals(Some<T> other) => other != null && (ReferenceEquals(this, other) || EqualityComparer<T>.Default.Equals(Value, other.Value));
+        public bool Equals(Some<T> other) => (other != null) &&
+                                             (ReferenceEquals(this, other) ||
+                                              EqualityComparer<T>.Default.Equals(Value, other.Value));
+
         public bool Equals(None none) => false;
         public override bool Equals(object? obj) => obj is Some<T> other && Equals(other);
         public override int GetHashCode() => EqualityComparer<T>.Default.GetHashCode(Value);
