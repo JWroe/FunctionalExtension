@@ -32,7 +32,7 @@ namespace FunctionalExtension.Extensions
 
         public static long NextLong(this Random random, long max) => random.NextLong(0, max);
 
-        public static long NextLong(this Random random) => random.NextLong(long.MinValue, long.MaxValue);
+        public static long NextLong(this Random random) => random.NextLong(long.MaxValue);
         public static DateTime NextDateTime(this Random random) => new DateTime(random.NextLong(DateTime.MaxValue.Ticks));
 
         // ReSharper disable twice StringLiteralTypo

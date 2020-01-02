@@ -59,7 +59,7 @@ namespace FunctionalExtension.Test.Examples
                .FlatMap(e => e.LeftOn.Map(leftOn => YearsBetween(e.JoinedOn, leftOn)))
                .Average();
 
-        static double YearsBetween(DateTime start, DateTime end) => (end - start).Days / 365d;
+        private static double YearsBetween(DateTime start, DateTime end) => (end - start).Days / 365d;
     }
 
     public class Employee
@@ -132,8 +132,7 @@ namespace FunctionalExtension.Test.Examples
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((WorkPermit)obj);
+            return obj.GetType() == GetType() && Equals((WorkPermit)obj);
         }
 
         public override int GetHashCode()
