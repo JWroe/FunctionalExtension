@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using FunctionalExtension.Extensions;
-using FunctionalExtension.Types;
 
-namespace FunctionalExtension.Core
+namespace FunctionalExtension
 {
     public static partial class F
     {

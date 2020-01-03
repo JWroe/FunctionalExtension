@@ -1,7 +1,6 @@
-﻿using FunctionalExtension.Extensions;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
-using static FunctionalExtension.Core.F;
+using static FunctionalExtension.F;
 
 namespace FunctionalExtension.Test
 {

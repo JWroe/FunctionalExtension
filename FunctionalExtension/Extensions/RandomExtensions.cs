@@ -2,12 +2,10 @@
 
 using System;
 using System.Linq;
-using System.Security.Cryptography;
-using static FunctionalExtension.Core.F;
 
-namespace FunctionalExtension.Extensions
+namespace FunctionalExtension
 {
-    public static class RandomExtensions
+    public static partial class F
     {
         public static long NextLong(this Random random, long min, long max)
         {

@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using FunctionalExtension.Core;
-using FunctionalExtension.Extensions;
-using FunctionalExtension.Types;
 using Shouldly;
 using Xunit;
-using static FunctionalExtension.Core.F;
+using static FunctionalExtension.F;
 
 namespace FunctionalExtension.Test.Examples
 {

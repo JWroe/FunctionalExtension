@@ -1,7 +1,5 @@
 using System;
 using System.Linq;
-using FunctionalExtension.Core;
-using FunctionalExtension.Extensions;
 using Shouldly;
 using Xunit;
 using Unit = System.ValueTuple;

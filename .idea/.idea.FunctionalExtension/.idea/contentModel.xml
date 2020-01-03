@@ -13,18 +13,15 @@
       <e p="FunctionalExtension" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Core" t="Include">
-          <e p="_F.cs" t="Include" />
-          <e p="LookupF.cs" t="Include" />
-          <e p="ParseF.cs" t="Include" />
-        </e>
-        <e p="Exceptions" t="Include">
-          <e p="ThisCantHappenException.cs" t="Include" />
+          <e p="F.cs" t="Include" />
+          <e p="Lookup.cs" t="Include" />
+          <e p="Parse.cs" t="Include" />
         </e>
         <e p="Extensions" t="Include">
           <e p="ActionExtensions.cs" t="Include" />
           <e p="EnumerableExtensions.cs" t="Include" />
           <e p="FunctionExtensions.cs" t="Include" />
-          <e p="OptionExtensions.cs" t="Include" />
+          <e p="NumberExtensions.cs" t="Include" />
           <e p="RandomExtensions.cs" t="Include" />
         </e>
         <e p="FunctionalExtension.csproj" t="IncludeRecursive" />
@@ -37,12 +34,14 @@
           </e>
         </e>
         <e p="Types" t="Include">
+          <e p="Either.cs" t="Include" />
           <e p="Option.cs" t="Include" />
         </e>
       </e>
       <e p="FunctionalExtension.sln" t="IncludeFlat" />
       <e p="FunctionalExtension.Test" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
+        <e p="EitherTests.cs" t="Include" />
         <e p="Examples" t="Include">
           <e p="EmployeeTests.cs" t="Include" />
         </e>

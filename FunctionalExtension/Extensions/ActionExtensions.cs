@@ -1,10 +1,9 @@
 ﻿using System;
-using static FunctionalExtension.Core.F;
 using Unit = System.ValueTuple;
 
-namespace FunctionalExtension.Extensions
+namespace FunctionalExtension
 {
-    public static class ActionExtensions
+    public static partial class F
     {
         public static Func<Unit> ToFunc(this Action action)
             => () =>

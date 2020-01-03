@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
-using FunctionalExtension.Core;
 using Shouldly;
 using Xunit;
 
