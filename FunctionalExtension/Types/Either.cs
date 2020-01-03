@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unit = System.ValueTuple;
 
 namespace FunctionalExtension
 {
@@ -7,6 +8,9 @@ namespace FunctionalExtension
     {
         public static Either.Left<L> Left<L>(L l) => new Either.Left<L>(l);
         public static Either.Right<R> Right<R>(R r) => new Either.Right<R>(r);
+
+        public static Either<L, R> AsEitherLeft<L, R>(this L l) => new Either<L, R>(l);
+        public static Either<L, R> AsEitherRight<L, R>(this R r) => new Either<L, R>(r);
     }
 
     public sealed class Either<L, R>
@@ -38,16 +42,19 @@ namespace FunctionalExtension
         public static implicit operator Either<L, R>(Either.Left<L> left) => new Either<L, R>(left.Value);
         public static implicit operator Either<L, R>(Either.Right<R> right) => new Either<L, R>(right.Value);
 
+        public Unit Match(Action<L> left, Action<R> right)
+            => Match(left.ToFunc(), right.ToFunc());
+
         public Tr Match<Tr>(Func<L, Tr> left, Func<R, Tr> right)
             => IsLeft ? left(Left) : right(Right);
 
-         public ValueTuple Match(Action<L> left, Action<R> right)
-             => Match(left.ToFunc(), right.ToFunc());
-        
-         public IEnumerator<R> AsEnumerable()
-         {
-             if (IsRight) yield return Right;
-         }
+        public Either<Lr, Rr> Map<Lr, Rr>(Func<L, Lr> left, Func<R, Rr> right)
+            => IsRight ? right(Right).AsEitherRight<Lr, Rr>() : left(Left);
+
+        public IEnumerator<R> AsEnumerable()
+        {
+            if (IsRight) yield return Right;
+        }
 
         public override string ToString() => Match(l => $"Left({l})", r => $"Right({r})");
     }
@@ -76,39 +83,13 @@ namespace FunctionalExtension
 
     public static class EitherExt
     {
-        public static Either<L, Rr> Map<L, R, Rr>
-            (this Either<L, R> @this, Func<R, Rr> f)
-            => @this.Match<Either<L, Rr>>(
-                F.Left,
-                r => F.Right(f(r)));
+        public static Either<L, Rr> Map<L, R, Rr>(this Either<L, R> @this, Func<R, Rr> f)
+            => @this.Match<Either<L, Rr>>(left => left, r => f(r));
 
-        public static Either<Ll, Rr> Map<L, Ll, R, Rr>
-            (this Either<L, R> @this, Func<L, Ll> left, Func<R, Rr> right)
-            => @this.Match<Either<Ll, Rr>>(
-                l => F.Left(left(l)),
-                r => F.Right(right(r)));
-
-        public static Either<L, ValueTuple> ForEach<L, R>
-            (this Either<L, R> @this, Action<R> act)
+        public static Either<L, Unit> ForEach<L, R>(this Either<L, R> @this, Action<R> act)
             => Map(@this, act.ToFunc());
 
-        public static Either<L, Rr> Bind<L, R, Rr>
-            (this Either<L, R> @this, Func<R, Either<L, Rr>> f)
-            => @this.Match(
-                F.Left,
-                f);
-
-        public static Either<L, R> Select<L, T, R>(this Either<L, T> @this
-            , Func<T, R> map) => @this.Map(map);
-
-
-        public static Either<L, Rr> SelectMany<L, T, R, Rr>(this Either<L, T> @this
-            , Func<T, Either<L, R>> bind, Func<T, R, Rr> project)
-            => @this.Match(
-                F.Left,
-                t =>
-                    bind(@this.Right).Match<Either<L, Rr>>(
-                        F.Left,
-                        r => project(t, r)));
+        public static Either<L, Rr> Bind<L, R, Rr>(this Either<L, R> @this, Func<R, Either<L, Rr>> f)
+            => @this.Match(left => left, f);
     }
 }
